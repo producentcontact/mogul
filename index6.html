@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pogled na banke, kartične mreže i procesore koji učestvuju u svakoj transakciji.">
+<title>Ko zarađuje kada plaćate karticom? — Mogul.rs</title>
+<link rel="canonical" href="https://mogul.rs/clanak/placanje-karticom/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Mogul.rs">
+<meta property="og:title" content="Ko zarađuje kada plaćate karticom?">
+<meta property="og:description" content="Pogled na banke, kartične mreže i procesore koji učestvuju u svakoj transakciji.">
+<meta property="og:url" content="https://mogul.rs/clanak/placanje-karticom/">
+<meta property="og:image" content="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=90">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --paper:#f1efe8;--ink:#171716;--black:#151514;--white:#f6f4ee;
+  --muted:#aaa9a2;--line:#d1cec5;--dark-line:#393936;--orange:#ed5b32;
+  --display:"Barlow Condensed",Impact,sans-serif;--body:"DM Sans",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body)}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.site-header{background:var(--paper);padding:0 3.1vw}
+.topbar{height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d9d6cd}
+.brand-symbol{font-size:20px;font-weight:700;letter-spacing:-2px}
+.brand-symbol span{color:var(--orange)}
+.nav{display:flex;align-items:center;gap:clamp(12px,2.2vw,30px);font-size:10px;font-weight:700;text-transform:uppercase}
+.nav a{transition:color .2s}.nav a:hover{color:var(--orange)}
+.mobile-menu{display:none;background:none;border:0;font-size:22px}
+.masthead{height:106px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.masthead h1{font:900 clamp(45px,7vw,88px)/.8 var(--display);letter-spacing:-.045em;margin:0;text-transform:uppercase;white-space:nowrap}
+.masthead h1 span{color:var(--orange)}
+.masthead-rule{height:6px;background:var(--ink);flex:1;margin-top:28px;min-width:25px}
+.masthead-side{font:900 clamp(35px,5.5vw,70px)/.8 var(--display);letter-spacing:-.04em;text-transform:uppercase;text-align:right}
+.masthead-side span{color:var(--orange)}
+.hero{background:var(--black);color:var(--white);padding:22px 3.1vw 35px;display:grid;grid-template-columns:1fr 1fr;gap:4vw;min-height:440px}
+.hero-copy{padding:16px 0 20px;display:flex;flex-direction:column;align-items:flex-start}
+.kicker{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#b9b7af;font-weight:700;display:flex;align-items:center;gap:9px}
+.kicker:before{content:"";width:8px;height:8px;background:var(--orange);display:inline-block}
+.hero h2{font:800 clamp(42px,5.2vw,70px)/.94 var(--display);letter-spacing:-.025em;text-transform:uppercase;max-width:650px;margin:24px 0 20px}
+.hero h2 em{font-style:normal;color:var(--orange)}
+.byline{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#c6c3bb;margin-top:2px}
+.hero-summary{font-size:13px;line-height:1.75;color:#c0beb7;max-width:450px;margin:27px 0 0}
+.hero-link{margin-top:auto;padding-top:27px;font-size:10px;text-transform:uppercase;letter-spacing:.13em;font-weight:700;color:var(--orange)}
+.hero-link span{font-size:17px;margin-left:7px}
+.hero-visual{min-height:380px;position:relative;overflow:hidden;background:#d6d1c7}
+.hero-visual img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;filter:grayscale(100%) contrast(1.06);opacity:.9}
+.hero-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.08),rgba(0,0,0,.25))}
+.visual-stamp{position:absolute;z-index:2;right:18px;top:18px;background:var(--orange);color:white;font:800 11px var(--display);letter-spacing:.1em;padding:8px 11px;text-transform:uppercase}
+.visual-caption{position:absolute;z-index:2;bottom:18px;left:18px;background:var(--paper);color:var(--ink);padding:10px 13px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.ticker{background:var(--orange);color:#171716;padding:10px 3.1vw;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.content{padding:58px 3.1vw 75px}
+.section-top{display:flex;justify-content:space-between;align-items:end;gap:20px;border-bottom:2px solid var(--ink);padding-bottom:13px;margin-bottom:23px}
+.section-top h2{font:800 clamp(32px,4vw,48px)/.9 var(--display);text-transform:uppercase;margin:0;letter-spacing:-.02em}
+.section-top p{margin:0;color:#66645e;font-size:11px;max-width:330px;text-align:right}
+.feature-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;margin-bottom:58px}
+.feature-card{position:relative;min-height:300px;background:#242422;color:white;overflow:hidden}
+.feature-card img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;filter:grayscale(100%);opacity:.72;transition:transform .5s}
+.feature-card:hover img{transform:scale(1.035)}
+.feature-card:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.86),transparent 75%)}
+.feature-card-copy{position:absolute;z-index:2;bottom:22px;left:22px;right:22px}
+.feature-card-copy .kicker{color:#eee}
+.feature-card h3{font:800 clamp(29px,3.5vw,43px)/.95 var(--display);text-transform:uppercase;margin:13px 0 8px;max-width:620px}
+.feature-card p{font-size:11px;color:#dedbd3;max-width:520px;margin:0}
+.feature-card.small{min-height:300px}
+.feature-card.small h3{font-size:clamp(26px,3vw,36px)}
+.articles-head{display:flex;justify-content:space-between;align-items:end;border-bottom:2px solid var(--ink);padding-bottom:13px;margin-bottom:10px}
+.articles-head h2{font:800 clamp(32px,4vw,48px)/.9 var(--display);text-transform:uppercase;margin:0}
+.articles-head span{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#77746d}
+.article-list{border-top:0}
+.article-item{border-bottom:1px solid #c9c6bd}
+.article-item summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:75px minmax(0,1fr) 115px 28px;gap:18px;align-items:center;padding:19px 5px;transition:background .2s}
+.article-item summary::-webkit-details-marker{display:none}
+.article-item summary:hover{background:#e8e5dc}
+.article-number{font:700 27px/.9 var(--display);color:#a5a198}
+.article-title-wrap small{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#8a867d;font-weight:700}
+.article-title{font:700 clamp(20px,2.5vw,29px)/1.05 var(--display);text-transform:uppercase;margin-top:5px}
+.article-type{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#77746d;text-align:right}
+.plus{width:27px;height:27px;border:1px solid #99958c;border-radius:50%;display:grid;place-items:center;font-size:19px;line-height:1;transition:transform .2s,background .2s}
+.article-item[open] .plus{transform:rotate(45deg);background:var(--orange);border-color:var(--orange);color:white}
+.article-body{padding:0 54px 25px 98px;display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:30px;animation:reveal .25s ease}
+@keyframes reveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.article-body p{font-size:13px;line-height:1.8;color:#55534d;margin:0 0 12px}
+.article-body .article-meta{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#8c887f;margin-bottom:10px}
+.article-body img{width:100%;height:135px;object-fit:cover;filter:grayscale(100%)}
+.read-more{display:inline-block;margin-top:8px;color:var(--orange);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.about-strip{margin-top:65px;background:var(--ink);color:var(--paper);padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.about-strip h2{font:800 clamp(32px,4vw,48px)/.9 var(--display);text-transform:uppercase;margin:0}
+.about-strip p{font-size:12px;line-height:1.8;color:#c2bfb7;margin:0}
+footer{background:var(--paper);border-top:1px solid #c9c6bd;padding:22px 3.1vw;display:flex;justify-content:space-between;gap:15px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#77746d}
+footer strong{color:var(--ink)}
+
+/* Conventional article cards and dedicated reading views */
+.article-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px 18px;margin-bottom:52px}
+.article-card{display:block;background:#e9e6de;border:1px solid #d4d0c6;transition:transform .2s,border-color .2s;min-width:0}
+.article-card:hover{transform:translateY(-4px);border-color:var(--orange)}
+.card-image{height:190px;overflow:hidden;background:#d4d0c6}
+.card-image img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%);transition:transform .4s}
+.article-card:hover .card-image img{transform:scale(1.04)}
+.card-copy{padding:18px 18px 20px}
+.card-meta{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#77746d;font-weight:700}
+.card-meta span{color:var(--orange);padding:0 4px}
+.card-copy h3{font:800 27px/.98 var(--display);text-transform:uppercase;margin:12px 0 9px}
+.card-copy p{font-size:11px;line-height:1.7;color:#66645e;margin:0 0 18px}
+.card-link{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);font-weight:800}
+.article-pages{display:none}
+.article-page{max-width:850px;margin:0 auto;padding:8px 0 45px}
+.article-page:target{display:block}
+.article-page:target~.article-page{display:none}
+.article-grid:has(~ .article-page:target){display:none}
+.articles-head:has(~ .article-grid .article-card:target){display:none}
+.back-link{display:inline-block;margin:0 0 35px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--orange)}
+.article-kicker{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#77746d;font-weight:700}
+.article-page h1{font:900 clamp(43px,7vw,76px)/.9 var(--display);text-transform:uppercase;letter-spacing:-.025em;max-width:800px;margin:17px 0}
+.article-deck{font:600 17px/1.5 var(--body);color:#66645e;max-width:700px;margin:0 0 27px}
+.article-hero-image{width:100%;max-height:440px;object-fit:cover;filter:grayscale(100%);margin-bottom:30px}
+.article-prose{max-width:690px;margin:0 auto}
+.article-prose p{font-size:15px;line-height:1.9;color:#44423d;margin:0 0 20px}
+.article-prose h2{font:800 32px/1 var(--display);text-transform:uppercase;margin:34px 0 13px}
+.article-note{background:#e5e1d8;border-left:4px solid var(--orange);padding:17px 20px;margin-top:30px!important}
+body:has(.article-page:target) .feature-grid,
+body:has(.article-page:target) .section-top,
+body:has(.article-page:target) .articles-head,
+body:has(.article-page:target) .article-grid{display:none}
+body:has(.article-page:target) .article-pages{display:block}
+body:has(.article-page:target) .article-page{display:none}
+body:has(#article-eyewear:target) #article-eyewear,
+body:has(#article-payments:target) #article-payments,
+body:has(#article-market-power:target) #article-market-power,
+body:has(#article-shipping:target) #article-shipping,
+body:has(#article-private-equity:target) #article-private-equity{display:block}
+
+@media(max-width:760px){
+ .site-header{padding:0 18px}.topbar{height:52px}.nav{display:none;position:absolute;top:52px;left:0;right:0;background:var(--paper);padding:20px;z-index:10;flex-direction:column;align-items:flex-start;border-bottom:1px solid var(--line)}.nav.open{display:flex}.mobile-menu{display:block}
+ .masthead{height:78px}.masthead h1{font-size:clamp(37px,10vw,62px)}.masthead-side{font-size:clamp(29px,8vw,48px)}.masthead-rule{height:4px;margin-top:18px}
+ .hero{padding:18px;grid-template-columns:1fr;gap:20px}.hero h2{font-size:clamp(43px,11vw,65px);margin:18px 0}.hero-summary{margin-top:18px}.hero-visual{min-height:260px}
+ .ticker{padding:10px 18px;justify-content:flex-start}.ticker span:nth-child(n+4){display:none}
+ .content{padding:43px 18px 55px}.section-top{align-items:flex-start;flex-direction:column}.section-top p{text-align:left}.feature-grid{grid-template-columns:1fr}.feature-card,.feature-card.small{min-height:270px}
+ .article-item summary{grid-template-columns:38px minmax(0,1fr) 25px;gap:10px;padding:16px 2px}.article-type{display:none}.article-number{font-size:22px}.article-title{font-size:23px}.article-body{padding:0 8px 22px 50px;grid-template-columns:1fr;gap:12px}.article-body img{height:170px;max-width:100%}
+ .article-grid{grid-template-columns:1fr 1fr;gap:13px}
+ .card-image{height:135px}.card-copy{padding:13px}.card-copy h3{font-size:22px}
+ .article-page{padding-top:0}.article-page h1{font-size:48px}.article-deck{font-size:15px}
+ .article-prose p{font-size:14px}.article-prose h2{font-size:28px}
+ .about-strip{margin-top:45px;padding:25px;grid-template-columns:1fr;gap:15px}footer{padding:20px 18px;flex-direction:column}
+}
+
+/* Standalone article page */
+body:has(.article-standalone) .article-standalone { display:block !important; }
+body:has(.article-standalone) .article-standalone:target { display:block !important; }
+body:has(.article-standalone) .article-standalone .back-link { margin-top:8px; }
+body:has(.article-standalone) .content { padding-top:42px; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="topbar">
+    <a class="brand-symbol" href="index.html" aria-label="Mogul.rs home">M<span>.</span></a>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Otvori navigaciju">☰</button>
+    <nav class="nav" id="mainNav">
+      <a href="index.html">O nama</a><a href="index.html">Članci</a><a href="index.html">Teme</a>
+    </nav>
+  </div>
+  <div class="masthead">
+    <h1>Mogul<span>.</span></h1><div class="masthead-rule"></div><div class="masthead-side">Objašnjeno<span>.</span></div>
+  </div>
+</header>
+<main>
+  <section class="content">
+    <article class="article-page article-standalone">
+        <a class="back-link" href="index.html#articles">← Nazad na sve članke</a>
+        <div class="article-kicker">Novac bez tajni · 6 min čitanja</div>
+        <h1>SNS šema koja kontroliše muzičku industriju.</h1>
+        <p class="article-deck">Jedan čovek koji kontroliše sve javne događaje na našim prostorima.</p>
+        <img class="article-hero-image" src="https://skyevents.rs/storage/posts/milenko_skaric.jpg" alt="Plaćanje bankovnom karticom">
+        <div class="article-prose">
+          <p>Bilo da se radi o EXIT festivalu, saboru trubača u Guči ili koncertu Guns N’ Roses na Ušću, ime jedne kompanije pojavljuje se na svakom vozilu i komadu opreme koji se koristi u produkciji. Radi se o firmi SkyMusic/SkyProductions. Ovo je trenutno najveća kompanija za organizaciju i realizaciju događaja na prostorima jugoistočne Evrope, ali kako je za samo desetak godina došla do tolikog uticaja?</p>
+          <h2>Zahvaljujući jednoj stranci</h2>
+          <p>SkyMusic je do dolaska SNS na vlast bila prodavnica muzičke opreme sa manjim ogrankom koji se bavio produkcijom događaja. Od 2012. godine kompanija naglo počinje svoj uspon ka vrhu. Ključan korak za takav uspeh je ulazak u velike muzičke događaje na prostoru Srbije. Prvi korak je bio preuzimanje procenta EXIT festivala nakon što je prethodni konkurent, Studio Berar oteran iz organizacije pod pritiskom gradske uprave Novog Sada, inače glavnog finansijera festivala. To im omogućava rad na ogromnom projektu, koji otvara vrata ka svim drugim manifestacijama u državi. Veoma lako potom Sky preuzima kontrolu nad Beer Festom u Beogradu, Saborom trubača u Guči i pokreće Music Week na Ušću i još mnoge druge. Najveća finansijska injekcija za kompaniju je bio talas javnih koncerata na trgovima u organizaciji lokalnih gradskih uprava. Upravo jedan takav događaj bili su Dani porodice na Trgu Republike u Beogradu. Grad Beograd je plaćao najam opreme namenjene za nekoliko hiljada ljudi tokom skoro dva meseca, iako je organizovanom programu prisustvovalo tek stotinjak ljudi. Prema navodima pojedinih dobro obaveštenih izvora, postoje mnoge poteškoće ako želite da organizujete bilo kakav veliki koncert ili javni događaj u Srbiji a da to prethodno ne odobri SkyMusic koji obavezno mora učestvovati i u produkciji. Takav stav prema stranim organizatorima događaja doveo je do toga da konkurenti potpuno napuste tržište Srbije i regiona. Upravo zbog toga SkyMusic čak postaje i izabrana produkcijska kuća i za one koji nisu pod pritiskom jer su već postali dovoljno provereni i pouzdani.</p>
+          <h2>Ko stoji iza firme?</h2>
+          <p>Iza sada već korporacije SkyMusic stoji Milenko Škarić. Prema njegovim rečima, nekada je bio običan učitelj klavira, a onda je počeo sa prodajom muzičkih instrumenata što je na kraju preraslo u kompaniju ovih razmera. Koliko je to realna priča, ostaje na čitaocima da procene. Ono što je ključno u čitavoj ovoj priči svakako Škarićevo prijateljstvo sa Sinišom Malim. Veliki broj ugovora između Škarićevog preduzeća i grada Beograda potpisan je upravo dok je Mali bio gradonačelnik, a praksa se nastavila i u mandatu Aleksandra Šapića.</p>
+          <p class="article-note"><strong>Zaključak:</strong> Priča o SkyMusicu otvara pitanje granice između poslovnog uspeha i političkog uticaja na tržištu. Od male prodavnice muzičke opreme do kompanije bez koje, prema tvrdnjama pojedinih aktera iz industrije, gotovo da nema velikog događaja u Srbiji – takav uspon teško je posmatrati bez analize odnosa sa državnim i gradskim strukturama. Koliko je u svemu tome presudila poslovna sposobnost, a koliko pristup javnim poslovima i slabljenje konkurencije, ostaje ključno pitanje ove priče.</p>
+          <p>Autor: Nemanja V</p>
+        </div>
+      </article>
+  </section>
+</main>
+<footer id="newsletter"><span><strong>Mogul.rs</strong> · Poslovanje iza svega</span><span>Nezavisno. Radoznalo. Jasno. · © 2026</span></footer>
+<script>
+const menuButton = document.getElementById('mobileMenu');
+const navigation = document.getElementById('mainNav');
+menuButton.addEventListener('click', () => navigation.classList.toggle('open'));
+navigation.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navigation.classList.remove('open')));
+</script>
+</body>
+</html>
