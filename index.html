@@ -150,6 +150,37 @@ body:has(#article-private-equity:target) #article-private-equity{display:block}
  .article-prose p{font-size:14px}.article-prose h2{font-size:28px}
  .about-strip{margin-top:45px;padding:25px;grid-template-columns:1fr;gap:15px}footer{padding:20px 18px;flex-direction:column}
 }
+
+
+.patreon-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: transparent;
+  color: var(--orange) !important;
+  border: 1px solid var(--orange);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+}
+
+.patreon-nav-btn:hover {
+  background-color: var(--orange);
+  color: var(--white) !important;
+}
+
+.patreon-nav-btn svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+
+  
 </style>
 </head>
 <body>
@@ -159,6 +190,12 @@ body:has(#article-private-equity:target) #article-private-equity{display:block}
     <button class="mobile-menu" id="mobileMenu" aria-label="Otvori navigaciju">☰</button>
     <nav class="nav" id="mainNav">
       <a href="#about">O nama</a><a href="#articles">Članci</a><a href="#topics">Teme</a>
+      <a href="https://www.patreon.com/TVOJ_PATREON_USERNAME" target="_blank" rel="noopener noreferrer" class="patreon-nav-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15.386 0c-4.764 0-8.64 3.876-8.64 8.64 0 4.75 3.876 8.613 8.64 8.613 4.75 0 8.614-3.864 8.614-8.613C24 3.876 20.136 0 15.386 0zM0 24h4.158V0H0v24z"/>
+        </svg>
+        <span>Patreon</span>
+      </a>
     </nav>
   </div>
   <div class="masthead">
