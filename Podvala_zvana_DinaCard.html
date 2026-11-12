@@ -204,3 +204,450 @@ navigation.querySelectorAll('a').forEach(link => link.addEventListener('click', 
 </script>
 </body>
 </html>
+
+
+
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mogul.rs – Dobrodošli</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* CENTRALNI PROZOR */
+#mogul-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  background: rgba(15, 15, 14, 0.72);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  backdrop-filter: blur(3px);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.mogul-modal {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: #f1efe8;
+  color: #171716;
+  padding: 38px;
+  text-align: center;
+  border: 1px solid #d1cec5;
+  box-shadow: 0 20px 80px rgba(0,0,0,.25);
+  animation: mogulAppear .45s ease;
+  box-sizing: border-box;
+}
+
+@keyframes mogulAppear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mogul-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #777;
+  cursor: pointer;
+}
+
+.mogul-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 35px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-bottom: 25px;
+}
+
+.mogul-logo span {
+  color: #ed5b32;
+}
+
+.mogul-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ed5b32;
+  margin-bottom: 12px;
+}
+
+.mogul-modal h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 43px;
+  line-height: .95;
+  font-weight: 900;
+  margin: 0 0 18px;
+  letter-spacing: -.5px;
+}
+
+.mogul-intro {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #66645e;
+  max-width: 310px;
+  margin: 0 auto 25px;
+}
+
+.mogul-patreon {
+  background: #171716;
+  color: #f1efe8;
+  padding: 23px 20px;
+}
+
+.mogul-patreon-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.mogul-patreon p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #c5c2b9;
+  margin: 8px 0 18px;
+}
+
+.mogul-patreon-button {
+  display: block;
+  background: #ed5b32;
+  color: white;
+  padding: 14px 10px;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  transition: background .2s;
+}
+
+.mogul-patreon-button:hover {
+  background: #d94b26;
+}
+
+.mogul-continue {
+  margin-top: 22px;
+  border: none;
+  background: transparent;
+  color: #171716;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+/* DONJA INFORMACIONA TRAKA */
+#mogul-info-bar {
+  position: fixed;
+  z-index: 99999;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #171716;
+  color: #f1efe8;
+  padding: 20px 5%;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+  box-shadow: 0 -8px 30px rgba(0,0,0,.15);
+  transform: translateY(110%);
+  transition: transform .5s ease;
+}
+
+#mogul-info-bar.visible {
+  transform: translateY(0);
+}
+
+/* DUGME ZA ZATVARANJE */
+.mogul-info-close {
+  position: absolute;
+  top: 14px;
+  right: 22px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid #55534e;
+  color: #f1efe8;
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+
+.mogul-info-close:hover {
+  background: #ed5b32;
+  border-color: #ed5b32;
+  color: #fff;
+}
+
+.mogul-info-heading {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #ed5b32;
+  margin-bottom: 16px;
+  padding-right: 40px;
+}
+
+.mogul-info-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #ed5b32;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.mogul-info-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.mogul-info-content strong {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  letter-spacing: .5px;
+  color: #f1efe8;
+}
+
+.mogul-info-content p {
+  color: #aaa9a2;
+  font-size: 11px;
+  line-height: 1.6;
+  margin: 7px 0 0;
+}
+
+.mogul-info-footer {
+  border-top: 1px solid #393936;
+  margin-top: 18px;
+  padding-top: 13px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #aaa9a2;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* MOBILNI UREĐAJI */
+@media (max-width: 700px) {
+  .mogul-modal {
+    padding: 30px 23px;
+    max-width: 360px;
+  }
+
+  .mogul-modal h2 {
+    font-size: 37px;
+  }
+
+  #mogul-info-bar {
+    padding: 17px 20px;
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+
+  .mogul-info-close {
+    top: 10px;
+    right: 12px;
+  }
+
+  .mogul-info-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 380px) {
+  .mogul-info-content {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- CENTRALNI PROZOR -->
+<div id="mogul-overlay">
+  <div class="mogul-modal">
+
+    <button class="mogul-close" id="mogul-close" aria-label="Zatvori">
+      &times;
+    </button>
+
+    <div class="mogul-logo">MOGUL<span>.</span></div>
+
+    <div class="mogul-eyebrow">DOBRO DOŠLI NA MOGUL.RS</div>
+
+    <h2>POSLOVANJE<br>IZA SVEGA.</h2>
+
+    <p class="mogul-intro">
+      Priče, analize i istraživanja o ljudima,
+      kompanijama i tržištima koja oblikuju
+      našu svakodnevicu.
+    </p>
+
+    <div class="mogul-patreon">
+      <div class="mogul-patreon-title">PODRŽI MOGUL</div>
+
+      <p>
+        Postani član i pristupi dodatnim analizama
+        i ekskluzivnom sadržaju.
+      </p>
+
+      <a href="https://www.patreon.com/TVOJPROFIL"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="mogul-patreon-button">
+        PRIDRUŽI SE NA PATREONU ↗
+      </a>
+    </div>
+
+    <button id="mogul-continue" class="mogul-continue">
+      NASTAVI NA SAJT →
+    </button>
+
+  </div>
+</div>
+
+
+<!-- DONJA INFORMACIONA TRAKA -->
+<div id="mogul-info-bar">
+
+  <button id="mogul-info-close"
+          class="mogul-info-close"
+          aria-label="Zatvori informacije"
+          title="Zatvori">
+    &times;
+  </button>
+
+  <div class="mogul-info-heading">
+    <span class="mogul-info-dot"></span>
+    INFORMACIJE O KORIŠĆENJU SAJTA
+  </div>
+
+  <div class="mogul-info-content">
+
+    <div>
+      <strong>SADRŽAJ I ODGOVORNOST</strong>
+      <p>
+        Tekstovi su informativnog karaktera i ne predstavljaju
+        finansijski, pravni ili investicioni savet.
+        Trudimo se da objavljeni podaci budu tačni,
+        ali ne garantujemo njihovu potpunost i ažurnost.
+      </p>
+    </div>
+
+    <div>
+      <strong>AUTORSKA PRAVA</strong>
+      <p>
+        Tekstovi, fotografije, grafički elementi i drugi
+        materijali zaštićeni su autorskim pravima.
+        Kopiranje i dalje objavljivanje bez dozvole
+        nije dozvoljeno, osim kada je zakonom dopušteno.
+      </p>
+    </div>
+
+    <div>
+      <strong>PRIVATNOST I PODACI</strong>
+      <p>
+        Za čitanje sadržaja nije potrebna registracija,
+        korisnički nalog niti unos ličnih podataka.
+        Tehnički podaci mogu se obrađivati radi
+        funkcionisanja i bezbednosti sajta.
+      </p>
+    </div>
+
+    <div>
+      <strong>EKSTERNI LINKOVI</strong>
+      <p>
+        Sajt može sadržati linkove ka drugim internet
+        stranicama. Ne odgovaramo za njihov sadržaj,
+        bezbednost niti način obrade podataka
+        na tim stranicama.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="mogul-info-footer">
+    <span>© MOGUL.RS</span>
+    <span>KORIŠĆENJEM SAJTA PRIHVATATE NAVEDENE USLOVE.</span>
+  </div>
+
+</div>
+
+
+<script>
+const mogulOverlay = document.getElementById('mogul-overlay');
+const mogulInfo = document.getElementById('mogul-info-bar');
+
+const mogulClose = document.getElementById('mogul-close');
+const mogulContinue = document.getElementById('mogul-continue');
+const mogulInfoClose = document.getElementById('mogul-info-close');
+
+function closeMogulModal() {
+  mogulOverlay.style.display = 'none';
+  mogulInfo.classList.add('visible');
+
+  sessionStorage.setItem('mogul_modal_closed', 'true');
+}
+
+function closeMogulInfo() {
+  mogulInfo.classList.remove('visible');
+
+  sessionStorage.setItem('mogul_info_closed', 'true');
+}
+
+// Zatvaranje centralnog prozora
+mogulClose.addEventListener('click', closeMogulModal);
+mogulContinue.addEventListener('click', closeMogulModal);
+
+// Klik izvan centralnog prozora
+mogulOverlay.addEventListener('click', function(e) {
+  if (e.target === mogulOverlay) {
+    closeMogulModal();
+  }
+});
+
+// Zatvaranje donje informativne trake
+mogulInfoClose.addEventListener('click', closeMogulInfo);
+
+// Provera prethodnog zatvaranja centralnog prozora
+if (sessionStorage.getItem('mogul_modal_closed') === 'true') {
+  mogulOverlay.style.display = 'none';
+
+  if (sessionStorage.getItem('mogul_info_closed') !== 'true') {
+    mogulInfo.classList.add('visible');
+  }
+}
+
+// Provera prethodnog zatvaranja donje trake
+if (sessionStorage.getItem('mogul_info_closed') === 'true') {
+  mogulInfo.classList.remove('visible');
+}
+</script>
+
+</body>
+</html>
+
